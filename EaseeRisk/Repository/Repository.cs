@@ -2,9 +2,9 @@
 using SurrealDb.Net;
 using SurrealDb.Net.Models;
 
-namespace EaseeRisk.Store;
+namespace EaseeRisk.Repository;
 
-public class Repository<T, TDto> : IRepository<T, TDto>
+public class Repository<T, TRequest> : IRepository<T, TRequest> where T : Record
 {
     private readonly ISurrealDbClient _client;
     private readonly IMapper _mapper;
@@ -17,13 +17,13 @@ public class Repository<T, TDto> : IRepository<T, TDto>
         _client = client;
         var configuration = new MapperConfiguration(cfg =>
         {
-            cfg.CreateMap<TDto, T>();
+            cfg.CreateMap<TRequest, T>();
         });
 
         _mapper = configuration.CreateMapper();
     }
 
-    public async Task<T> Create(TDto dto, CancellationToken cancellationToken)
+    public async Task<T> Create(TRequest dto, CancellationToken cancellationToken)
     {
         var model = _mapper.Map<T>(dto);
         return await _client.Create(_tableName, model, cancellationToken);

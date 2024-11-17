@@ -1,7 +1,8 @@
 
 using EaseeRisk;
 using EaseeRisk.Model;
-using EaseeRisk.Store;
+using EaseeRisk.Repository;
+using EaseeRisk.Requests;
 using Microsoft.AspNetCore.Mvc;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -14,7 +15,7 @@ var options = SurrealDbOptions
     .Build();
 
 builder.Services.AddSurreal(options);
-builder.Services.AddSingleton<IRiskAssessmentStore, SurrealDbStore>();
+builder.Services.AddSingleton<IRelationshipRepository, RelationshipRepository>();
 builder.Services.AddRepository<RiskAssessmentTemplate, CreateRiskAssessmentTemplate>();
 builder.Services.AddRepository<RiskIndicatorGroup, CreateRiskIndicatorGroup>();
 

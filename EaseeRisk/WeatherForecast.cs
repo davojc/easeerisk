@@ -1,12 +1,13 @@
 using EaseeRisk.Model;
-using EaseeRisk.Store;
+using EaseeRisk.Repository;
+using SurrealDb.Net.Models;
 
 namespace EaseeRisk;
 
 
 public static class RepoExtensions
 {
-    public static void AddRepository<T, TDto>(this IServiceCollection services)
+    public static void AddRepository<T, TDto>(this IServiceCollection services) where T : Record
     {
         services.AddSingleton<IRepository<T, TDto>, Repository<T, TDto>>();
     }

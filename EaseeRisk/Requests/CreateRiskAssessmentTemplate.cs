@@ -1,6 +1,6 @@
 ﻿using System.Text.Json.Serialization;
 
-namespace EaseeRisk.Model;
+namespace EaseeRisk.Requests;
 
 public class CreateRiskAssessmentTemplate
 {

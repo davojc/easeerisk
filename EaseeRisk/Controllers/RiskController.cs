@@ -1,13 +1,14 @@
-using AutoMapper.QueryableExtensions.Impl;
 using EaseeRisk.Model;
-using EaseeRisk.Store;
+using EaseeRisk.Model.Relations;
+using EaseeRisk.Repository;
+using EaseeRisk.Requests;
 using Microsoft.AspNetCore.Mvc;
 
 namespace EaseeRisk.Controllers;
 
 [ApiController]
 [Route("/api/[controller]")]
-public class RiskController(IRiskAssessmentStore riskAssessmentStore,
+public class RiskController(IRelationshipRepository relationshipRepository,
                             IRepository<RiskAssessmentTemplate, CreateRiskAssessmentTemplate> templateRepository,
                             IRepository<RiskIndicatorGroup, CreateRiskIndicatorGroup> indicatorRepository,
                             ILogger<RiskController> logger) : ControllerBase
@@ -40,6 +41,13 @@ public class RiskController(IRiskAssessmentStore riskAssessmentStore,
     public Task<RiskIndicatorGroup> Post([FromBody] string[] riskIndicators, string templateId, CancellationToken cancellationToken)
     {
         throw new NotImplementedException();
+    }
+
+    [HttpPut("templates/{templateId}/indicator-groups/{indicatorId}")]
+    public Task<TemplateIndicatorRelation> Put(string templateId, string indicatorId, CancellationToken cancellationToken)
+    {
+        return relationshipRepository.Add<RiskAssessmentTemplate, RiskIndicatorGroup, TemplateIndicatorRelation>(indicatorId,
+            templateId, new TemplateIndicatorRelation(), cancellationToken);
     }
 
     /*
