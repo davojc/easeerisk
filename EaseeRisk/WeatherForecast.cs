@@ -1,13 +1,13 @@
-namespace EaseeRisk
+using EaseeRisk.Model;
+using EaseeRisk.Store;
+
+namespace EaseeRisk;
+
+
+public static class RepoExtensions
 {
-    public class WeatherForecast
+    public static void AddRepository<T, TDto>(this IServiceCollection services)
     {
-        public DateOnly Date { get; set; }
-
-        public int TemperatureC { get; set; }
-
-        public int TemperatureF => 32 + (int)(TemperatureC / 0.5556);
-
-        public string? Summary { get; set; }
+        services.AddSingleton<IRepository<T, TDto>, Repository<T, TDto>>();
     }
 }

@@ -8,7 +8,9 @@ public interface IRiskAssessmentStore
 
     Task<IEnumerable<RiskAssessmentTemplate>> GetAssessmentTemplates(CancellationToken cancellationToken);
 
-    //RiskAssessmentTemplateDto GetAssessmentTemplateById(string id);
+    //RiskAssessmentTemplate GetAssessmentTemplateById(string id);
+
+    Task<RiskIndicatorGroup> AddRiskIndicatorGroup(CreateRiskIndicatorGroup createRiskIndicatorGroup, string templateId, CancellationToken cancellationToken);
 
     /*
     IEnumerable<RiskIndicatorGroup> GetIndicatorGroups(string templateId);

@@ -1,10 +1,12 @@
 ﻿using System.Text.Json.Serialization;
+using SurrealDb.Net.Models;
 
 namespace EaseeRisk.Store;
 
-public class RiskAssessmentTemplate
+[Table("riskassessmenttemplate")]
+public class RiskAssessmentTemplate : Record
 {
-    public string Name { get; set; }
+    public required string Name { get; set; }
 
     public required string Category { get; set; }
 

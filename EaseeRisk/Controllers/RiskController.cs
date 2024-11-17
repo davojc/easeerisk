@@ -1,3 +1,4 @@
+using AutoMapper.QueryableExtensions.Impl;
 using EaseeRisk.Model;
 using EaseeRisk.Store;
 using Microsoft.AspNetCore.Mvc;
@@ -6,18 +7,39 @@ namespace EaseeRisk.Controllers;
 
 [ApiController]
 [Route("/api/[controller]")]
-public class RiskController(IRiskAssessmentStore riskAssessmentStore, ILogger<RiskController> logger) : ControllerBase
+public class RiskController(IRiskAssessmentStore riskAssessmentStore,
+                            IRepository<RiskAssessmentTemplate, CreateRiskAssessmentTemplate> templateRepository,
+                            IRepository<RiskIndicatorGroup, CreateRiskIndicatorGroup> indicatorRepository,
+                            ILogger<RiskController> logger) : ControllerBase
 {
     [HttpGet("templates")]
     public Task<IEnumerable<RiskAssessmentTemplate>> GetTemplates(CancellationToken cancellationToken)
     {
-        return riskAssessmentStore.GetAssessmentTemplates(cancellationToken);
+        return templateRepository.Get(cancellationToken);
     }
 
     [HttpPost("templates")]
     public Task<RiskAssessmentTemplate> Post([FromBody] CreateRiskAssessmentTemplate riskAssessmentTemplate, CancellationToken cancellationToken)
     {
-        return riskAssessmentStore.AddRiskAssessmentTemplate(riskAssessmentTemplate, cancellationToken);
+        return templateRepository.Create(riskAssessmentTemplate, cancellationToken);
+    }
+
+    [HttpGet("templates/{templateId}")]
+    public Task<RiskAssessmentTemplate?> Get(string templateId, CancellationToken cancellationToken)
+    {
+        return templateRepository.Get(templateId, cancellationToken);
+    }
+
+    [HttpPost("indicator-groups")]
+    public Task<RiskIndicatorGroup> Post([FromBody] CreateRiskIndicatorGroup riskIndicatorGroup, CancellationToken cancellationToken)
+    {
+        return indicatorRepository.Create(riskIndicatorGroup, cancellationToken);
+    }
+
+    [HttpPost("templates/{templateId}/indicator-groups")]
+    public Task<RiskIndicatorGroup> Post([FromBody] string[] riskIndicators, string templateId, CancellationToken cancellationToken)
+    {
+        throw new NotImplementedException();
     }
 
     /*

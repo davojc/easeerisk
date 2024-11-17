@@ -96,12 +96,6 @@ public class RiskLevel
     public required RiskLevelBoundary Boundary { get; set; }
 }
 
-public class RiskIndicatorGroup
-{
-    [JsonPropertyName("name")]
-    public required string Name { get; set; }
-}
-
 public class RiskIndicator
 {
     [JsonPropertyName("text")]
@@ -110,12 +104,3 @@ public class RiskIndicator
     [JsonPropertyName("guidance")]
     public required string Guidance { get; set; }
 }
-
-
-
-public abstract class Record
-{
-
-}
-
-

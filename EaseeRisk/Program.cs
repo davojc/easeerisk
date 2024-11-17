@@ -1,5 +1,8 @@
 
+using EaseeRisk;
+using EaseeRisk.Model;
 using EaseeRisk.Store;
+using Microsoft.AspNetCore.Mvc;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -10,11 +13,10 @@ var options = SurrealDbOptions
     .WithDatabase("easeerisk")
     .Build();
 
-
-
 builder.Services.AddSurreal(options);
 builder.Services.AddSingleton<IRiskAssessmentStore, SurrealDbStore>();
-
+builder.Services.AddRepository<RiskAssessmentTemplate, CreateRiskAssessmentTemplate>();
+builder.Services.AddRepository<RiskIndicatorGroup, CreateRiskIndicatorGroup>();
 
 // Add services to the container.
 builder.Services.AddControllers();
