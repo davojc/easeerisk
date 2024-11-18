@@ -29,13 +29,23 @@ public class Repository<T, TRequest> : IRepository<T, TRequest> where T : Record
         return await _client.Create(_tableName, model, cancellationToken);
     }
 
-    public Task<IEnumerable<T>> Get(CancellationToken cancellationToken)
+    public async Task<IEnumerable<T>> Get(CancellationToken cancellationToken)
     {
-        return _client.Select<T>(_tableName, cancellationToken);
+        return await _client.Select<T>(_tableName, cancellationToken);
     }
 
-    public Task<T?> Get(string id, CancellationToken cancellationToken)
+    public async Task<T?> Get(string id, CancellationToken cancellationToken)
     {
-        return _client.Select<T>(RecordId.From(_tableName, id), cancellationToken);
+        return await _client.Select<T>(RecordId.From(_tableName, id), cancellationToken);
+    }
+
+    public async Task<IEnumerable<T>> Update(T data, CancellationToken cancellationToken)
+    {
+        return await _client.Update<T>(_tableName, data, cancellationToken);
+    }
+
+    public async Task<bool> Delete(string id, CancellationToken cancellationToken)
+    {
+        return await _client.Delete(RecordId.From(_tableName, id), cancellationToken);
     }
 }

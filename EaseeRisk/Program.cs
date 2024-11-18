@@ -15,7 +15,21 @@ var options = SurrealDbOptions
     .Build();
 
 builder.Services.AddSurreal(options);
+
+
+// Add CORS services
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowAll", builder =>
+    {
+        builder.AllowAnyOrigin()
+            .AllowAnyMethod()
+            .AllowAnyHeader();
+    });
+});
+
 builder.Services.AddSingleton<IRelationshipRepository, RelationshipRepository>();
+builder.Services.AddSingleton<IRelationshipBuilder, RelationshipBuilder>();
 builder.Services.AddRepository<RiskAssessmentTemplate, CreateRiskAssessmentTemplate>();
 builder.Services.AddRepository<RiskIndicatorGroup, CreateRiskIndicatorGroup>();
 
@@ -35,6 +49,8 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+
+app.UseCors("AllowAll");
 
 app.UseAuthorization();
 

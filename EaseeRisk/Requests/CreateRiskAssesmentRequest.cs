@@ -1,9 +1,9 @@
-﻿using SurrealDb.Net.Models;
-using System.Text.Json.Serialization;
+﻿using System.Text.Json.Serialization;
+using EaseeRisk.Model;
 
 namespace EaseeRisk.Requests;
 
-public class CreateRiskAssessmentTemplate
+public class CreateRiskAssesmentRequest
 {
     [JsonPropertyName("name")]
     public required string Name { get; set; }
@@ -13,4 +13,8 @@ public class CreateRiskAssessmentTemplate
 
     [JsonPropertyName("description")]
     public required string Description { get; set; }
+
+    [JsonPropertyName("indicatorGroups")]
+    public required IList<RiskAssessmentIndicatorGroup> IndicatorGroups { get; set; } =
+        new List<RiskAssessmentIndicatorGroup>();
 }

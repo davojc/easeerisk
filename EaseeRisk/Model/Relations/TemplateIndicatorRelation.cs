@@ -6,6 +6,6 @@ using SurrealDb.Net.Models;
 
 namespace EaseeRisk.Model.Relations;
 
-public class TemplateIndicatorRelation : Record
+public class TemplateIndicatorRelation : RelationRecord
 {
 }

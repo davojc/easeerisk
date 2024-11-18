@@ -1,8 +1,9 @@
-﻿namespace EaseeRisk.Repository;
+﻿using SurrealDb.Net.Models;
+
+namespace EaseeRisk.Repository;
 
 public interface IRelationshipRepository
 {
-    Task<TRelation> Add<TFrom, TTo, TRelation>(string fromId, string toId, TRelation tRelation,
-        CancellationToken cancellationToken)
-        where TRelation : class;
+    Task<TRelation> Add<TRelation>(TRelation tRelation, CancellationToken cancellationToken)
+        where TRelation : RelationRecord, new();
 }

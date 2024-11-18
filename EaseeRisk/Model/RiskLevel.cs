@@ -1,9 +1,7 @@
 ﻿using System.Text.Json.Serialization;
-using SurrealDb.Net.Models;
-
 namespace EaseeRisk.Model;
 
-public class RiskLevel : Record
+public class RiskLevel
 {
     [JsonPropertyName("title")]
     public required string Title { get; set; }
