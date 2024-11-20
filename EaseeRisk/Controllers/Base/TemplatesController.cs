@@ -7,7 +7,7 @@ namespace EaseeRisk.Controllers.Base;
 
 [ApiController]
 [Route("/api/risk/templates")]
-public class TemplatesController(IRepository<RiskAssessmentTemplate, CreateRiskAssessmentTemplate> repository)
-    : GeneralModelControllerBase<RiskAssessmentTemplate, CreateRiskAssessmentTemplate>(repository)
+public class TemplatesController(IRepository<RiskAssessmentTemplate, CreateRiskAssessmentTemplateRequest> repository)
+    : GeneralModelControllerBase<RiskAssessmentTemplate, CreateRiskAssessmentTemplateRequest>(repository)
 {
 }

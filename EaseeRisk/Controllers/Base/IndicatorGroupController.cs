@@ -7,7 +7,7 @@ namespace EaseeRisk.Controllers.Base;
 
 [ApiController]
 [Route("/api/risk/indicator-groups")]
-public class IndicatorGroupController(IRepository<RiskIndicatorGroup, CreateRiskIndicatorGroup> repository)
-    : GeneralModelControllerBase<RiskIndicatorGroup, CreateRiskIndicatorGroup>(repository)
+public class IndicatorGroupController(IRepository<RiskIndicatorGroup, CreateRiskIndicatorGroupRequest> repository)
+    : GeneralModelControllerBase<RiskIndicatorGroup, CreateRiskIndicatorGroupRequest>(repository)
 {
 }

@@ -10,5 +10,5 @@ public class RiskLevel
     public required string Color { get; set; }
 
     [JsonPropertyName("boundary")]
-    public required RiskLevelBoundary Boundary { get; set; }
+    public RiskLevelBoundary? Boundary { get; set; }
 }

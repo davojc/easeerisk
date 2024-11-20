@@ -2,7 +2,7 @@
 
 namespace EaseeRisk.Requests;
 
-public class CreateRiskIndicatorGroup
+public class CreateRiskIndicatorGroupRequest
 {
     [JsonPropertyName("name")]
     public required string Name { get; set; }

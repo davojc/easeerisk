@@ -4,6 +4,7 @@ using EaseeRisk.Model;
 using EaseeRisk.Repository;
 using EaseeRisk.Requests;
 using Microsoft.AspNetCore.Mvc;
+using System.Text.Json.Serialization;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -28,13 +29,24 @@ builder.Services.AddCors(options =>
     });
 });
 
+//builder.Services.AddJsonOptions()
+
 builder.Services.AddSingleton<IRelationshipRepository, RelationshipRepository>();
 builder.Services.AddSingleton<IRelationshipBuilder, RelationshipBuilder>();
-builder.Services.AddRepository<RiskAssessmentTemplate, CreateRiskAssessmentTemplate>();
-builder.Services.AddRepository<RiskIndicatorGroup, CreateRiskIndicatorGroup>();
+builder.Services.AddRepository<RiskAssessmentTemplate, CreateRiskAssessmentTemplateRequest>();
+builder.Services.AddRepository<RiskIndicatorGroup, CreateRiskIndicatorGroupRequest>();
+builder.Services.AddRepository<RiskIndicator, CreateRiskIndicatorRequest>();
+builder.Services.AddRepository<RiskLevelSet, CreateRiskLevelSetRequest>();
+builder.Services.AddRepository<RiskAssesment, CreateRiskAssesmentRequest>();
 
 // Add services to the container.
-builder.Services.AddControllers();
+builder.Services.AddControllers()
+    .AddJsonOptions(jsonOptions =>
+    {
+        var enumConverter = new JsonStringEnumConverter();
+        jsonOptions.JsonSerializerOptions.Converters.Add(enumConverter);
+        jsonOptions.JsonSerializerOptions.DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull;
+    });
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();

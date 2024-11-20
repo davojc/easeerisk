@@ -3,7 +3,7 @@ using System.Text.Json.Serialization;
 
 namespace EaseeRisk.Requests;
 
-public class CreateRiskAssessmentTemplate
+public class CreateRiskAssessmentTemplateRequest
 {
     [JsonPropertyName("name")]
     public required string Name { get; set; }
