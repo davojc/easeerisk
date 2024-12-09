@@ -1,5 +1,5 @@
 ﻿using System.Text.Json.Serialization;
-using EaseeRisk.Model;
+using EaseeRisk.Model.Assessments;
 
 namespace EaseeRisk.Requests;
 
@@ -15,6 +15,6 @@ public class CreateRiskAssesmentRequest
     public required string Description { get; set; }
 
     [JsonPropertyName("indicatorGroups")]
-    public required IList<RiskAssessmentIndicatorGroup> IndicatorGroups { get; set; } =
-        new List<RiskAssessmentIndicatorGroup>();
+    public required IList<RiskIndicatorGroup> IndicatorGroups { get; set; } =
+        new List<RiskIndicatorGroup>();
 }

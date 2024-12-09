@@ -1,4 +1,7 @@
-﻿namespace EaseeRisk.Model;
+﻿using EaseeRisk.Model.Assessments;
+using EaseeRisk.Model.Templates;
+
+namespace EaseeRisk.Model;
 
 public class RiskCalculator
 {

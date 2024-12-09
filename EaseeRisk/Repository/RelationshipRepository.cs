@@ -7,6 +7,6 @@ public class RelationshipRepository(ISurrealDbClient client) : IRelationshipRepo
 {
     public async Task<TRelation> Add<TRelation>(TRelation tRelation, CancellationToken cancellationToken) where TRelation : RelationRecord, new()
     {
-        return await client.InsertRelation<TRelation>(typeof(TRelation).Name, tRelation, cancellationToken);
+        return await client.InsertRelation<TRelation>(typeof(TRelation).Name.ToLowerInvariant(), tRelation, cancellationToken);
     }
 }

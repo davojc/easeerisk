@@ -1,4 +1,4 @@
-using EaseeRisk.Model;
+using EaseeRisk.Model.Templates;
 using EaseeRisk.Repository;
 using EaseeRisk.Requests;
 using Microsoft.AspNetCore.Mvc;

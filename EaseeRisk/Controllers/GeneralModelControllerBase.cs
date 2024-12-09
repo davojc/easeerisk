@@ -15,7 +15,9 @@ public abstract class GeneralModelControllerBase<T, TCreate>(IRepository<T, TCre
     [HttpGet("{id}")]
     public Task<T?> Get(string id, CancellationToken cancellationToken)
     {
-        return repository.Get(id, cancellationToken);
+        var result =  repository.Get(id, cancellationToken);
+
+        return result;
     }
 
     [HttpPost]
@@ -24,10 +26,10 @@ public abstract class GeneralModelControllerBase<T, TCreate>(IRepository<T, TCre
         return repository.Create(createBody, cancellationToken);
     }
 
-    [HttpPut]
-    public Task<IEnumerable<T>> Update([FromBody] T data, CancellationToken cancellationToken)
+    [HttpPut("{id}")]
+    public Task<T> Update(string id, [FromBody] T data, CancellationToken cancellationToken)
     {
-        return repository.Update(data, cancellationToken);
+        return repository.Update(id, data, cancellationToken);
     }
 
     [HttpDelete("{id}")]

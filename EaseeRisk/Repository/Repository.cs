@@ -12,7 +12,7 @@ public class Repository<T, TRequest> : IRepository<T, TRequest> where T : Record
 
     public Repository(ISurrealDbClient client)
     {
-        _tableName = typeof(T).Name;
+        _tableName = typeof(T).Name.ToLowerInvariant();
 
         _client = client;
         var configuration = new MapperConfiguration(cfg =>
@@ -39,9 +39,10 @@ public class Repository<T, TRequest> : IRepository<T, TRequest> where T : Record
         return await _client.Select<T>(RecordId.From(_tableName, id), cancellationToken);
     }
 
-    public async Task<IEnumerable<T>> Update(T data, CancellationToken cancellationToken)
+    public async Task<T> Update(string id, T data, CancellationToken cancellationToken)
     {
-        return await _client.Update<T>(_tableName, data, cancellationToken);
+        data.Id = RecordId.From(_tableName, id);
+        return await _client.Update<T>(data, cancellationToken);
     }
 
     public async Task<bool> Delete(string id, CancellationToken cancellationToken)

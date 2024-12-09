@@ -1,10 +1,12 @@
 
 using EaseeRisk;
-using EaseeRisk.Model;
+using EaseeRisk.Model.Assessments;
+using EaseeRisk.Model.Templates;
 using EaseeRisk.Repository;
 using EaseeRisk.Requests;
-using Microsoft.AspNetCore.Mvc;
 using System.Text.Json.Serialization;
+using Indicator = EaseeRisk.Model.Templates.Indicator;
+using IndicatorGroup = EaseeRisk.Model.Templates.IndicatorGroup;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -33,11 +35,11 @@ builder.Services.AddCors(options =>
 
 builder.Services.AddSingleton<IRelationshipRepository, RelationshipRepository>();
 builder.Services.AddSingleton<IRelationshipBuilder, RelationshipBuilder>();
-builder.Services.AddRepository<RiskAssessmentTemplate, CreateRiskAssessmentTemplateRequest>();
-builder.Services.AddRepository<RiskIndicatorGroup, CreateRiskIndicatorGroupRequest>();
-builder.Services.AddRepository<RiskIndicator, CreateRiskIndicatorRequest>();
+builder.Services.AddRepository<Template, CreateRiskAssessmentTemplateRequest>();
+builder.Services.AddRepository<IndicatorGroup, CreateRiskIndicatorGroupRequest>();
+builder.Services.AddRepository<Indicator, CreateRiskIndicatorRequest>();
 builder.Services.AddRepository<RiskLevelSet, CreateRiskLevelSetRequest>();
-builder.Services.AddRepository<RiskAssesment, CreateRiskAssesmentRequest>();
+builder.Services.AddRepository<RiskAssessment, CreateRiskAssesmentRequest>();
 
 // Add services to the container.
 builder.Services.AddControllers()
@@ -51,6 +53,9 @@ builder.Services.AddControllers()
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+builder.Services.AddOpenApi();
+
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -58,6 +63,7 @@ if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
     app.UseSwaggerUI();
+    app.MapOpenApi();
 }
 
 app.UseHttpsRedirection();

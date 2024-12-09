@@ -1,5 +1,5 @@
 ﻿using System.Text.Json.Serialization;
-using EaseeRisk.Model;
+using EaseeRisk.Model.Templates;
 
 namespace EaseeRisk.Requests;
 
